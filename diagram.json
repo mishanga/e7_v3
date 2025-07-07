@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "author": "Mikhail Troshev",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-arduino-nano",
+      "id": "nano",
+      "top": -235.2,
+      "left": 66.7,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": 64,
+      "left": 284,
+      "attrs": { "pins": "i2c", "i2cAddress": "0x3F" }
+    },
+    {
+      "type": "wokwi-ds1307",
+      "id": "rtc1",
+      "top": 215.4,
+      "left": 278.5,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 6.2,
+      "left": 316.8,
+      "attrs": { "color": "red", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": 6.2,
+      "left": 403.2,
+      "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn3",
+      "top": 6.2,
+      "left": 489.6,
+      "attrs": { "color": "green", "xray": "1" }
+    }
+  ],
+  "connections": [
+    ["lcd1:GND", "nano:GND.1", "black", ["h-76.8", "v-38.4"]],
+    ["lcd1:VCC", "nano:5V", "red", ["h-28.8", "v0.1", "h-67.2"]],
+    ["lcd1:SDA", "nano:A4", "white", ["h0"]],
+    ["lcd1:SCL", "nano:A5", "#8f4814", ["h0"]],
+    ["rtc1:GND", "nano:GND.1", "black", ["h0"]],
+    ["rtc1:5V", "nano:5V", "red", ["h0"]],
+    ["rtc1:SDA", "nano:A4", "white", ["h0"]],
+    ["rtc1:SCL", "nano:A5", "#8f4814", ["h0"]],
+    ["btn1:1.l", "nano:A1", "green", ["v-9.6", "h-192"]],
+    ["btn2:1.l", "nano:A2", "green", ["h0", "v-19.2", "h-268.8"]],
+    ["btn3:1.l", "nano:A3", "green", ["h0", "v-28.8", "h-345.6"]],
+    ["btn3:2.l", "btn2:2.r", "black", ["h0"]],
+    ["btn2:2.l", "btn1:2.r", "black", ["h0"]],
+    ["btn1:2.l", "nano:GND.1", "black", ["h0"]]
+  ],
+  "serialMonitor": {
+    "display": "always",
+    "newline": "crlf",
+    "convertEol": true
+  },
+  "dependencies": {}
+}
