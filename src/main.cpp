@@ -3,14 +3,12 @@
 
 #define SERIAL_BAUD_RATE 115200
 
-E7Clock clock;
+E7Clock clock(3, 2, 2, 4);
 
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
-  Serial.println("start");
 
   clock.begin();
-  //Serial.println(clock.getFullTime());
 }
 
 void loop() {
