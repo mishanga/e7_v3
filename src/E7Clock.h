@@ -25,11 +25,6 @@ enum E7_ClockModeStates : uint8_t {
   E7_SET = 1
 };
 
-struct E7_SetState {
-  uint8_t position;
-  uint16_t seconds;
-};
-
 class E7Clock {
 
 private:
