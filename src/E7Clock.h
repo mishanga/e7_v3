@@ -168,6 +168,10 @@ public:
     return false;
   }
 
+  DateTime now() {
+    return _now;
+  }
+
   String getTempStr() {
     int8_t iTemp = getTempInt();
     String sTemp(iTemp);
@@ -175,8 +179,8 @@ public:
     if (iTemp > 0) {
       sTemp = "+" + sTemp;
     }
-    sTemp.concat(char(223));
-    sTemp.concat("C");
+    sTemp.concat("\xDF");
+    sTemp.concat("C");  // °C
     return sTemp;
   }
 
