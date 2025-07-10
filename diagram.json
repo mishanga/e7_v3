@@ -44,6 +44,14 @@
       "top": 6.2,
       "left": 489.6,
       "attrs": { "color": "green", "xray": "1" }
+    },
+    {
+      "type": "wokwi-max7219-matrix",
+      "id": "matrix1",
+      "top": -355,
+      "left": 266.96,
+      "rotate": 180,
+      "attrs": { "chain": "4", "layout": "fc16" }
     }
   ],
   "connections": [
@@ -60,7 +68,12 @@
     ["btn3:1.l", "nano:A3", "green", ["h0", "v-28.8", "h-345.6"]],
     ["btn3:2.l", "btn2:2.r", "black", ["h0"]],
     ["btn2:2.l", "btn1:2.r", "black", ["h0"]],
-    ["btn1:2.l", "nano:GND.1", "black", ["h0"]]
+    ["btn1:2.l", "nano:GND.1", "black", ["h0"]],
+    ["matrix1:CLK", "nano:5", "magenta", ["h0"]],
+    ["matrix1:CS", "nano:6", "blue", ["h0"]],
+    ["matrix1:DIN", "nano:7", "green", ["h0"]],
+    ["matrix1:GND", "nano:GND.2", "gold", ["h0"]],
+    ["matrix1:V+", "nano:5V", "orange", ["v153.6", "h-76.8"]]
   ],
   "serialMonitor": {
     "display": "always",
