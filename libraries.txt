@@ -2,5 +2,6 @@
 # See https://docs.wokwi.com/guides/libraries
 
 EncButton
+GyverMAX7219
 LiquidCrystal I2C
 RTClib
