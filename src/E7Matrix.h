@@ -12,29 +12,64 @@ class E7Matrix {
 
 private:
   MAX7219< MATRIX_SIZE, 1, 6, 7, 5 > _matrix;
+  uint32_t _tmr;
+  uint8_t _state;
+  uint16_t _delay[3];
 
-  void _updateView(String text) {
+  void _updateView(String text, bool showDot = true) {
     _matrix.clear();
 
     for (uint8_t seg = 0; seg < min(text.length(), MATRIX_SIZE); seg++) {
-      _matrix.setCursor(seg * 8, 0);
+      _matrix.setCursor(seg * 8 + 3, 1);
       _matrix.print(text.charAt(seg));
     }
+
+    _matrix.dot(16, 7, showDot);
+
     _matrix.update();
   }
 
 
 public:
-  E7Matrix() {
-  }
+  E7Matrix(uint8_t time_delay = 10, uint8_t date_delay = 3, uint8_t temp_delay = 3)
+    : _delay{
+        static_cast<uint16_t>(time_delay * 1000u),
+        static_cast<uint16_t>(date_delay * 1000u),
+        static_cast<uint16_t>(temp_delay * 1000u)
+      } {}
 
   void update(E7Clock clock) {
-    char format[] = "hhmm";
-    _updateView(String(clock.now().toString(format)));
+    char format_time[] = "hhmm";
+    char format_date[] = "DDMM";
+    DateTime now = clock.now();
+    switch (_state) {
+      case 0:
+        _updateView(String(now.toString(format_time)), now.second() % 2);
+        break;
+      case 1:
+        _updateView(String(now.toString(format_date)), true);
+        break;
+      case 2:
+        int8_t iTemp = clock.getTempInt();
+        char sTemp[5];
+        if (iTemp == 0) {
+          snprintf(sTemp, 5, "  0C");
+        } else {
+          snprintf(sTemp, 5, " %c%02d", iTemp < 0 ? '-' : '+', abs(iTemp));
+        }
+        _updateView(String(sTemp), false);
+        break;
+    }
+
+    if (millis() - _tmr >= _delay[_state]) {
+      _tmr = millis();
+      _state = (_state + 1) % 3;
+    }
   }
 
   void begin() {
     _matrix.begin();
     _matrix.setBright(15);
+    _tmr = millis();
   }
 };

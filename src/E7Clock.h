@@ -35,9 +35,6 @@ private:
   uint32_t _tmr_set;
   E7_ClockModeStates _mode;
   uint8_t _state;
-  uint16_t _time_delay;
-  uint16_t _date_delay;
-  uint16_t _temp_delay;
   uint16_t _set_delay;
   Button _btnMode;
   Button _btnMinus;
@@ -130,16 +127,13 @@ private:
   }
 
 public:
-  E7Clock(uint8_t time_delay = 10, uint8_t date_delay = 3, uint8_t temp_delay = 3, uint16_t set_delay = 10)
+  E7Clock(uint16_t set_delay = 10)
     : _lcd(0x3F, E7_LCD_COLS, E7_LCD_ROWS),
       _prd(1000),
       _tmr(0),
       _tmr_set(0),
       _mode(E7_SHOW),
       _state(4),
-      _time_delay(time_delay * 1000),
-      _date_delay(date_delay * 1000),
-      _temp_delay(temp_delay * 1000),
       _set_delay(set_delay * 1000),
       _btnMode(A1),
       _btnMinus(A2),
