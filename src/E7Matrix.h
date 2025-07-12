@@ -1,6 +1,5 @@
 #pragma once
 
-//#define GFX_NO_PRINT
 #define MATRIX_SIZE 4
 
 #include "E7Clock.h"
