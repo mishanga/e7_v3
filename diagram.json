@@ -83,6 +83,14 @@
       "top": -214.8,
       "left": 416.6,
       "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr1",
+      "top": -102.6,
+      "left": 238,
+      "rotate": 180,
+      "attrs": {}
     }
   ],
   "connections": [
@@ -130,7 +138,10 @@
       ["v15.41", "h48", "v-153.6", "h38.4"]
     ],
     ["led1:A", "nano:13", "red", ["v48", "h-355.2"]],
-    ["led1:C", "nano:GND.1", "black", ["v38.4", "h-220.4"]]
+    ["led1:C", "nano:GND.1", "black", ["v38.4", "h-220.4"]],
+    ["ldr1:AO", "nano:A7", "green", ["h0"]],
+    ["ldr1:VCC", "nano:5V", "red", ["h0"]],
+    ["ldr1:GND", "nano:GND.1", "black", ["h0"]]
   ],
   "serialMonitor": {
     "display": "always",
