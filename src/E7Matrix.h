@@ -30,11 +30,9 @@ private:
       }
     }
 
-    _matrix.dot(16, 7, showDot);
-
     _matrix.update();
+    digitalWrite(LED_BUILTIN, showDot);
   }
-
 
 public:
   E7Matrix(uint8_t time_delay = 10, uint8_t date_delay = 3, uint8_t temp_delay = 3)
@@ -77,6 +75,9 @@ public:
     _matrix.begin();
     _matrix.setBright(15);
     _tmr = millis();
+
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, LOW);
   }
 };
 

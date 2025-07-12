@@ -48,10 +48,41 @@
     {
       "type": "wokwi-max7219-matrix",
       "id": "matrix1",
-      "top": -355,
-      "left": 266.96,
-      "rotate": 180,
-      "attrs": { "chain": "4", "layout": "fc16" }
+      "top": -261.51,
+      "left": 241.3,
+      "rotate": 270,
+      "attrs": { "chain": "1", "layout": "fc16" }
+    },
+    {
+      "type": "wokwi-max7219-matrix",
+      "id": "matrix2",
+      "top": -261.51,
+      "left": 327.7,
+      "rotate": 270,
+      "attrs": { "chain": "1", "layout": "fc16" }
+    },
+    {
+      "type": "wokwi-max7219-matrix",
+      "id": "matrix3",
+      "top": -261.51,
+      "left": 433.3,
+      "rotate": 270,
+      "attrs": { "chain": "1", "layout": "fc16" }
+    },
+    {
+      "type": "wokwi-max7219-matrix",
+      "id": "matrix4",
+      "top": -261.51,
+      "left": 519.7,
+      "rotate": 270,
+      "attrs": { "chain": "1", "layout": "fc16" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": -214.8,
+      "left": 416.6,
+      "attrs": { "color": "red" }
     }
   ],
   "connections": [
@@ -69,11 +100,37 @@
     ["btn3:2.l", "btn2:2.r", "black", ["h0"]],
     ["btn2:2.l", "btn1:2.r", "black", ["h0"]],
     ["btn1:2.l", "nano:GND.1", "black", ["h0"]],
-    ["matrix1:CLK", "nano:5", "magenta", ["h0"]],
-    ["matrix1:CS", "nano:6", "blue", ["h0"]],
-    ["matrix1:DIN", "nano:7", "green", ["h0"]],
-    ["matrix1:GND", "nano:GND.2", "gold", ["h0"]],
-    ["matrix1:V+", "nano:5V", "orange", ["v153.6", "h-76.8"]]
+    ["matrix1:CLK", "nano:5", "magenta", ["v-9.6", "h-192"]],
+    ["matrix1:CS", "nano:6", "blue", ["v-19.2", "h-192"]],
+    ["matrix1:DIN", "nano:7", "green", ["v-28.8", "h-192"]],
+    ["matrix1:V+.2", "nano:5V", "orange", ["v34.61", "h-115.2"]],
+    ["nano:GND.1", "matrix1:GND.2", "gold", ["v28.8", "h105.6"]],
+    [
+      "matrix1:DOUT",
+      "matrix2:DIN",
+      "green",
+      ["v15.41", "h48", "v-153.6", "h38.4"]
+    ],
+    ["matrix1:CLK", "matrix2:CLK", "violet", ["v-9.6", "h86.4"]],
+    ["matrix1:CS", "matrix2:CS", "blue", ["v-19.2", "h86.4"]],
+    ["matrix2:CLK", "matrix3:CLK", "violet", ["v-9.6", "h86.4"]],
+    ["matrix3:CLK", "matrix4:CLK", "violet", ["v-9.6", "h86.4"]],
+    ["matrix2:CS", "matrix3:CS", "blue", ["v-19.2", "h86.4"]],
+    ["matrix3:CS", "matrix4:CS", "blue", ["v-19.2", "h86.4"]],
+    [
+      "matrix2:DOUT",
+      "matrix3:DIN",
+      "green",
+      ["v15.41", "h48", "v-153.6", "h38.4"]
+    ],
+    [
+      "matrix3:DOUT",
+      "matrix4:DIN",
+      "green",
+      ["v15.41", "h48", "v-153.6", "h38.4"]
+    ],
+    ["led1:A", "nano:13", "red", ["v48", "h-355.2"]],
+    ["led1:C", "nano:GND.1", "black", ["v38.4", "h-220.4"]]
   ],
   "serialMonitor": {
     "display": "always",
