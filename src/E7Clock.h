@@ -167,10 +167,10 @@ public:
   }
 
   String getTempStr() {
-    int8_t iTemp = getTempInt();
-    String sTemp(iTemp);
+    float fTemp = _rtc.getTemperature();
+    String sTemp(fTemp);
 
-    if (iTemp > 0) {
+    if (fTemp > 0) {
       sTemp = "+" + sTemp;
     }
     sTemp.concat("\xDF");
