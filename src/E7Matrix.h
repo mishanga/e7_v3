@@ -1,6 +1,6 @@
 #pragma once
 
-#define MATRIX_SIZE 4
+#define E7M_MATRIX_SIZE 4
 
 #include "E7Clock.h"
 #include "E7Symbol.h"
@@ -11,7 +11,7 @@
 class E7Matrix {
 
 private:
-  MAX7219< MATRIX_SIZE, 1, 6, 7, 5 > _matrix;
+  MAX7219< E7M_MATRIX_SIZE, 1, 6, 7, 5 > _matrix;
   uint32_t _tmr;
   uint8_t _state;
   uint16_t _delay[3];
@@ -20,7 +20,7 @@ private:
   void _updateView(String text, bool showDot = true) {
     _matrix.clear();
 
-    for (uint8_t seg = 0; seg < min(text.length(), MATRIX_SIZE); seg++) {
+    for (uint8_t seg = 0; seg < min(text.length(), E7M_MATRIX_SIZE); seg++) {
       const uint8_t* glyph = _e7s.getSmallSymbolGlyph(text.charAt(seg));
 
       for (int i = 0; i < E7S_SMALL_SIZE; i++) {
