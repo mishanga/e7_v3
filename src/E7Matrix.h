@@ -4,6 +4,7 @@
 #define MATRIX_SIZE 4
 
 #include "E7Clock.h"
+#include "E7Symbol.h"
 #include <Arduino.h>
 #include <GyverMAX7219.h>
 #include <math.h>
@@ -15,13 +16,18 @@ private:
   uint32_t _tmr;
   uint8_t _state;
   uint16_t _delay[3];
+  static const E7Symbol _e7s;
 
   void _updateView(String text, bool showDot = true) {
     _matrix.clear();
 
     for (uint8_t seg = 0; seg < min(text.length(), MATRIX_SIZE); seg++) {
-      _matrix.setCursor(seg * 8 + 3, 1);
-      _matrix.print(text.charAt(seg));
+      const uint8_t* glyph = _e7s.getSmallSymbolGlyph(text.charAt(seg));
+
+      for (int i = 0; i < E7S_SMALL_SIZE; i++) {
+        _matrix.setCursor(seg * 8 + i, 0);
+        _matrix.drawByte(glyph[i]);
+      }
     }
 
     _matrix.dot(16, 7, showDot);
@@ -73,3 +79,5 @@ public:
     _tmr = millis();
   }
 };
+
+const E7Symbol E7Matrix::_e7s;
