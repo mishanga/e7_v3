@@ -128,7 +128,7 @@ private:
 
 public:
   E7Clock(uint16_t set_delay = 10)
-    : _lcd(0x3F, E7_LCD_COLS, E7_LCD_ROWS),
+    : _lcd(0x27, E7_LCD_COLS, E7_LCD_ROWS),
       _prd(1000),
       _tmr(0),
       _tmr_set(0),

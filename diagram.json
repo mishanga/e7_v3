@@ -15,7 +15,7 @@
       "id": "lcd1",
       "top": 64,
       "left": 284,
-      "attrs": { "pins": "i2c", "i2cAddress": "0x3F" }
+      "attrs": { "pins": "i2c", "i2cAddress": "0x27" }
     },
     {
       "type": "wokwi-ds1307",
