@@ -168,7 +168,7 @@ public:
 
   String getTempStr() {
     float fTemp = _rtc.getTemperature();
-    String sTemp(fTemp);
+    String sTemp(fTemp, 1);
 
     if (fTemp > 0) {
       sTemp = "+" + sTemp;
