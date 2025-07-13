@@ -2,6 +2,12 @@
 
 #define E7M_MATRIX_SIZE 4
 
+#define E7M_MIN_LEVEL 100
+#define E7M_MAX_LEVEL 700
+#define E7M_MIN_BRIGHT 1
+#define E7M_MAX_BRIGHT 5
+#define E7M_LDR_PIN A7
+
 #include "E7Clock.h"
 #include "E7Symbol.h"
 #include <Arduino.h>
@@ -16,6 +22,15 @@ private:
   uint8_t _state;
   uint16_t _delay[3];
   static const E7Symbol _e7s;
+
+  void _updateBright() {
+    uint16_t val = analogRead(E7M_LDR_PIN);
+    uint16_t bright = map(
+      constrain(val, E7M_MIN_LEVEL, E7M_MAX_LEVEL),
+      E7M_MIN_LEVEL, E7M_MAX_LEVEL, E7M_MIN_BRIGHT, E7M_MAX_BRIGHT);
+
+    _matrix.setBright(bright);
+  }
 
   void _updateView(String text, bool showDot = true) {
     _matrix.clear();
@@ -44,7 +59,11 @@ public:
   void update(E7Clock clock) {
     char format_time[] = "hhmm";
     char format_date[] = "DDMM";
+
     DateTime now = clock.now();
+
+    _updateBright();
+
     switch (_state) {
       case 0:
         _updateView(String(now.toString(format_time)), now.second() % 2);
@@ -72,7 +91,7 @@ public:
 
   void begin() {
     _matrix.begin();
-    _matrix.setBright(15);
+    _matrix.setBright(1);
     _tmr = millis();
 
     pinMode(LED_BUILTIN, OUTPUT);
