@@ -19,7 +19,7 @@
 #define FULL_DATE_FORMAT "DD.MM.YY hh:mm"
 #define FULL_DATE_FORMAT_NO_DOT "DD.MM.YY hh mm"
 
-enum E7_ClockModeStates : uint8_t {
+enum E7_ClockMode : uint8_t {
   E7_SHOW = 0,
   E7_SET = 1
 };
@@ -32,7 +32,7 @@ private:
   uint16_t _prd;
   uint32_t _tmr;
   uint32_t _tmr_set;
-  E7_ClockModeStates _mode;
+  E7_ClockMode _mode;
   uint8_t _state;
   uint16_t _set_delay;
   Button _btnMode;
