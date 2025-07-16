@@ -41,15 +41,6 @@ struct E7Symbol {
     }
     return defaultBigGlyph;
   }
-
-  static void printMatrix(const uint8_t* matrix, int size) {
-    for (int i = 0; i < size; ++i) {
-      for (int j = 7; j >= 0; --j) {
-        printf("%s ", (((matrix[i] >> j) & 1) ? "x" : "."));
-      }
-      printf(" - %d - %d \n", i, matrix[i]);
-    }
-  }
 };
 
 const uint8_t E7Symbol::defaultSmallGlyph[E7S_SMALL_SIZE] = { 0 };
