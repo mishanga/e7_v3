@@ -12,7 +12,6 @@
 #include <EncButton.h>
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
-#include <math.h>
 
 #define E7_LCD_COLS 16
 #define E7_LCD_ROWS 2
