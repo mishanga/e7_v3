@@ -16,6 +16,7 @@ void setup() {
 
 void loop() {
   if (clock.tick()) {
+    clock.debugInfo("B" + String(matrix.getBright()));
     matrix.update(clock);
   };
 }

@@ -21,15 +21,16 @@ private:
   uint32_t _tmr;
   uint8_t _state;
   uint16_t _delay[3];
+  uint8_t _bright;
   static const E7Symbol _e7s;
 
   void _updateBright() {
     uint16_t val = analogRead(E7M_LDR_PIN);
-    uint16_t bright = map(
+    _bright = map(
       constrain(val, E7M_MIN_LEVEL, E7M_MAX_LEVEL),
       E7M_MIN_LEVEL, E7M_MAX_LEVEL, E7M_MIN_BRIGHT, E7M_MAX_BRIGHT);
 
-    _matrix.setBright(bright);
+    _matrix.setBright(_bright);
   }
 
   void _updateView(String text, bool showDot = true) {
@@ -55,7 +56,8 @@ public:
         static_cast<uint16_t>(time_delay * 1000u),
         static_cast<uint16_t>(date_delay * 1000u),
         static_cast<uint16_t>(temp_delay * 1000u)
-      } {}
+      },
+      _bright(1) {}
 
   void update(E7Clock clock) {
     char format_time[] = "hhmm";
@@ -92,11 +94,15 @@ public:
 
   void begin() {
     _matrix.begin();
-    _matrix.setBright(1);
+    _matrix.setBright(_bright);
     _tmr = millis();
 
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
+  }
+
+  uint8_t getBright() {
+    return _bright;
   }
 };
 
