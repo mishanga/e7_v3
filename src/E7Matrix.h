@@ -36,9 +36,10 @@ private:
     _matrix.clear();
 
     for (uint8_t seg = 0; seg < min(text.length(), E7M_MATRIX_SIZE); seg++) {
-      const uint8_t* glyph = _e7s.getSmallSymbolGlyph(text.charAt(seg));
+      uint8_t glyph[8];
+      _e7s.convertBigGlyphTo8x8(_e7s.getBigSymbolGlyph(text.charAt(seg)), glyph);
 
-      for (int i = 0; i < E7S_SMALL_SIZE; i++) {
+      for (uint8_t i = 0; i < 8; i++) {
         _matrix.setCursor(seg * 8 + i, 0);
         _matrix.drawByte(glyph[i]);
       }
