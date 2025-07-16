@@ -25,7 +25,7 @@ private:
   static const E7Symbol _e7s;
 
   void _updateBright() {
-    uint16_t val = analogRead(E7M_LDR_PIN);
+    uint16_t val = 1024 - analogRead(E7M_LDR_PIN);
     _bright = map(
       constrain(val, E7M_MIN_LEVEL, E7M_MAX_LEVEL),
       E7M_MIN_LEVEL, E7M_MAX_LEVEL, E7M_MIN_BRIGHT, E7M_MAX_BRIGHT);
