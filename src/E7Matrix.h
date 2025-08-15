@@ -3,13 +3,11 @@
 #define E7M_MATRIX_SIZE 4
 
 #define E7M_MIN_LEVEL 100
-#define E7M_MAX_LEVEL 700
+#define E7M_MAX_LEVEL 800
 #define E7M_MIN_BRIGHT 1
 #define E7M_MAX_BRIGHT 15
 #define E7M_LDR_PIN A7
 #define E7M_LED_PIN 3
-#define E7M_LED_MIN_BRIGHT 10
-#define E7M_LED_MAX_BRIGHT 50
 
 #include "E7Clock.h"
 #include "E7Symbol.h"
@@ -35,7 +33,7 @@ private:
       E7M_MIN_LEVEL, E7M_MAX_LEVEL, E7M_MIN_BRIGHT, E7M_MAX_BRIGHT);
 
     _matrix.setBright(_bright);
-    _ledBright = E7M_LED_MAX_BRIGHT;
+    _ledBright = _bright * 2;
   }
 
   void _updateView(String text, bool showDot = false) {
@@ -44,7 +42,6 @@ private:
     for (uint8_t seg = 0; seg < E7M_MATRIX_SIZE; seg++) {
       uint8_t glyph[8];
       _e7s.convertBigGlyphTo8x8(_e7s.getBigSymbolGlyph(text.charAt(seg)), glyph);
-
       for (uint8_t i = 0; i < 8; i++) {
         _matrix.setCursor(seg * 8 + i, 0);
         _matrix.drawByte(glyph[i]);
@@ -66,7 +63,7 @@ public:
         static_cast<uint16_t>(date_delay * 1000u),
         static_cast<uint16_t>(temp_delay * 1000u)
       },
-      _bright(E7M_MIN_BRIGHT), _ledBright(E7M_LED_MIN_BRIGHT) {}
+      _bright(E7M_MIN_BRIGHT), _ledBright(E7M_MIN_BRIGHT * 2) {}
 
   void update(E7Clock clock) {
     char format_time[] = "hhmm";
