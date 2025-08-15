@@ -5,7 +5,7 @@
 #define SERIAL_BAUD_RATE 115200
 
 E7Clock clock(4);
-E7Matrix matrix({ 5, 3, 3 });
+E7Matrix matrix({ 30, 5, 5 });
 
 void setup() {
   Serial.begin(SERIAL_BAUD_RATE);
