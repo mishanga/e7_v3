@@ -93,8 +93,8 @@ private:
           _now.year() + coef * (_state == 2),
           _now.month() + coef * (_state == 3),
           _now.day() + coef * (_state == 4),
-          _now.hour() + coef * (_state == 1),
-          _now.minute() + coef * (_state == 0),  // TODO: починить убывание минут
+          (_now.hour() + 24 + coef * (_state == 1)) % 24,
+          (_now.minute() + 60 + coef * (_state == 0)) % 60,
           _now.second());
 
         _rtc.adjust(newTime);
