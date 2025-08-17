@@ -16,7 +16,8 @@ void setup() {
 
 void loop() {
   if (clock.tick()) {
-    clock.debugInfo("B" + String(matrix.getBright()));
+    clock.debugInfo(
+      "B" + String(matrix.getBright()) + " " + (1024 - analogRead(E7M_LDR_PIN)) + "    ");
     matrix.update(clock);
   };
 }
