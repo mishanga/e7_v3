@@ -4,12 +4,18 @@
 #include <math.h>
 
 #define E7S_SMALL_SIZE 5
+#define E7S_MEDIUM_SIZE 9
 #define E7S_BIG_SIZE 11
 #define E7S_MAP_SIZE 13
 
 struct SmallSymbol {
   char letter;
   uint8_t glyph[E7S_SMALL_SIZE];
+};
+
+struct MediumSymbol {
+  char letter;
+  uint8_t glyph[E7S_MEDIUM_SIZE];
 };
 
 struct BigSymbol {
@@ -19,8 +25,10 @@ struct BigSymbol {
 
 struct E7Symbol {
   static const SmallSymbol smallSymbolMaps[E7S_MAP_SIZE];
+  static const MediumSymbol mediumSymbolMaps[E7S_MAP_SIZE];
   static const BigSymbol bigSymbolMaps[E7S_MAP_SIZE];
   static const uint8_t defaultSmallGlyph[E7S_SMALL_SIZE];
+  static const uint8_t defaultMediumGlyph[E7S_MEDIUM_SIZE];
   static const uint8_t defaultBigGlyph[E7S_BIG_SIZE];
 
   static const uint8_t* getSmallSymbolGlyph(char c) {
@@ -33,6 +41,15 @@ struct E7Symbol {
     return defaultSmallGlyph;
   }
 
+  static const uint8_t* getMediumSymbolGlyph(char c) {
+    for (const auto& symbol : mediumSymbolMaps) {
+      if (symbol.letter == c) {
+        return symbol.glyph;
+      }
+    }
+    return defaultMediumGlyph;
+  }
+
   static const uint8_t* getBigSymbolGlyph(char c) {
     for (const auto& symbol : bigSymbolMaps) {
       if (symbol.letter == c) {
@@ -40,6 +57,14 @@ struct E7Symbol {
       }
     }
     return defaultBigGlyph;
+  }
+
+  static void convertMediumGlyphTo8x8(const uint8_t* glyph, uint8_t* matrix) {
+    matrix[0] = 0;
+    // переносим верхнюю (8 строк) часть символа в матрицу as is
+    for (uint8_t i = 0; i < 8; i++) {
+      matrix[i + 1] = glyph[i] << 2;
+    }
   }
 
   static void convertBigGlyphTo8x8(const uint8_t* glyph, uint8_t* matrix) {
@@ -82,6 +107,7 @@ struct E7Symbol {
 };
 
 const uint8_t E7Symbol::defaultSmallGlyph[E7S_SMALL_SIZE] = { 0 };
+const uint8_t E7Symbol::defaultMediumGlyph[E7S_MEDIUM_SIZE] = { 0 };
 const uint8_t E7Symbol::defaultBigGlyph[E7S_BIG_SIZE] = { 0 };
 
 // 0: 000
@@ -108,14 +134,22 @@ const SmallSymbol E7Symbol::smallSymbolMaps[] = {
   { '9', { 7, 5, 7, 1, 7 } }
 };
 
-//   0: 0000000 - 0
-//   3: 0000011 - 1
-//  28: 0011100 - 2
-//  31: 0011111 - 3
-//  96: 1100000 - 4
-//  99: 1100011 - 5
-// 124: 1111100 - 6
-// 127: 1111111 - 7
+const MediumSymbol E7Symbol::mediumSymbolMaps[] = {
+  { '+', { 0, 0, 0, 0, 7, 0, 0, 0, 0 } },
+  { '-', { 0, 0, 0, 2, 7, 2, 0, 0, 0 } },
+  { 'C', { 15, 16, 16, 16, 16, 16, 16, 16, 15 } },
+  { '0', { 31, 17, 17, 17, 17, 17, 17, 17, 31 } },
+  { '1', { 1, 1, 1, 1, 1, 1, 1, 1, 1 } },
+  { '2', { 31, 1, 1, 1, 31, 16, 16, 16, 31 } },
+  { '3', { 31, 1, 1, 1, 7, 1, 1, 1, 31 } },
+  { '4', { 17, 17, 17, 17, 31, 1, 1, 1, 1 } },
+  { '5', { 31, 16, 16, 16, 31, 1, 1, 1, 31 } },
+  { '6', { 31, 16, 16, 16, 31, 17, 17, 17, 31 } },
+  { '7', { 31, 1, 1, 1, 1, 1, 1, 1, 1 } },
+  { '8', { 31, 17, 17, 17, 31, 17, 17, 17, 31 } },
+  { '9', { 31, 17, 17, 17, 31, 1, 1, 1, 31 } }
+};
+
 const BigSymbol E7Symbol::bigSymbolMaps[] = {
   { '+', { 0, 0, 12, 12, 63, 63, 12, 12, 0, 0, 0 } },
   { '-', { 0, 0, 0, 0, 63, 63, 0, 0, 0, 0, 0 } },
