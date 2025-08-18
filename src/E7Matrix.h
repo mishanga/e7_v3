@@ -41,7 +41,13 @@ private:
 
     for (uint8_t seg = 0; seg < E7M_MATRIX_SIZE; seg++) {
       uint8_t glyph[8];
-      _e7s.convertBigGlyphTo8x8(_e7s.getBigSymbolGlyph(text.charAt(seg)), glyph);
+
+      if (_bright > 1) {
+        _e7s.convertBigGlyphTo8x8(_e7s.getBigSymbolGlyph(text.charAt(seg)), glyph);
+      } else {
+        _e7s.convertMediumGlyphTo8x8(_e7s.getMediumSymbolGlyph(text.charAt(seg)), glyph);
+      }
+
       for (uint8_t i = 0; i < 8; i++) {
         _matrix.setCursor(seg * 8 + i, 0);
         _matrix.drawByte(glyph[i]);
