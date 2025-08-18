@@ -63,8 +63,25 @@ struct E7Symbol {
     matrix[0] = 0;
     // переносим верхнюю (8 строк) часть символа в матрицу as is
     for (uint8_t i = 0; i < 8; i++) {
-      matrix[i + 1] = glyph[i] << 2;
+      matrix[i + 1] = glyph[i] << 1;
     }
+
+    // group 0 - +:
+    bitWrite(matrix[5], 0, bitRead(glyph[4], 7));
+
+    // переносим нижнюю часть, распихивая по свободным местам
+    // group 2:
+    bitWrite(matrix[3], 7, bitRead(glyph[7], 4));
+    bitWrite(matrix[4], 7, bitRead(glyph[8], 4));
+
+    // group 3:
+    bitWrite(matrix[2], 2, bitRead(glyph[8], 1));
+    bitWrite(matrix[2], 3, bitRead(glyph[8], 2));
+    bitWrite(matrix[2], 4, bitRead(glyph[8], 3));
+
+    // group 4:
+    bitWrite(matrix[7], 2, bitRead(glyph[7], 0));
+    bitWrite(matrix[6], 4, bitRead(glyph[8], 4));
   }
 
   static void convertBigGlyphTo8x8(const uint8_t* glyph, uint8_t* matrix) {
@@ -110,14 +127,6 @@ const uint8_t E7Symbol::defaultSmallGlyph[E7S_SMALL_SIZE] = { 0 };
 const uint8_t E7Symbol::defaultMediumGlyph[E7S_MEDIUM_SIZE] = { 0 };
 const uint8_t E7Symbol::defaultBigGlyph[E7S_BIG_SIZE] = { 0 };
 
-// 0: 000
-// 1: 001
-// 2: 010
-// 3: 011
-// 4: 100
-// 5: 101
-// 6: 110
-// 7: 111
 const SmallSymbol E7Symbol::smallSymbolMaps[] = {
   { '+', { 0, 2, 7, 2, 0 } },
   { '-', { 0, 0, 7, 0, 0 } },
@@ -135,19 +144,19 @@ const SmallSymbol E7Symbol::smallSymbolMaps[] = {
 };
 
 const MediumSymbol E7Symbol::mediumSymbolMaps[] = {
-  { '+', { 0, 0, 0, 0, 7, 0, 0, 0, 0 } },
-  { '-', { 0, 0, 0, 2, 7, 2, 0, 0, 0 } },
+  { '+', { 0, 0, 0, 1, 131, 1, 0, 0, 0 } },
+  { '-', { 0, 0, 0, 0, 7, 0, 0, 0, 0 } },
   { 'C', { 15, 16, 16, 16, 16, 16, 16, 16, 15 } },
-  { '0', { 31, 17, 17, 17, 17, 17, 17, 17, 31 } },
+  { '0', { 14, 17, 17, 17, 17, 17, 17, 17, 14 } },
   { '1', { 1, 1, 1, 1, 1, 1, 1, 1, 1 } },
-  { '2', { 31, 1, 1, 1, 31, 16, 16, 16, 31 } },
-  { '3', { 31, 1, 1, 1, 7, 1, 1, 1, 31 } },
+  { '2', { 14, 17, 1, 1, 14, 16, 16, 16, 31 } },
+  { '3', { 14, 17, 1, 1, 6, 1, 1, 17, 14 } },
   { '4', { 17, 17, 17, 17, 31, 1, 1, 1, 1 } },
-  { '5', { 31, 16, 16, 16, 31, 1, 1, 1, 31 } },
-  { '6', { 31, 16, 16, 16, 31, 17, 17, 17, 31 } },
+  { '5', { 31, 16, 16, 16, 14, 1, 1, 31, 14 } },
+  { '6', { 14, 17, 16, 16, 30, 17, 17, 17, 14 } },
   { '7', { 31, 1, 1, 1, 1, 1, 1, 1, 1 } },
-  { '8', { 31, 17, 17, 17, 31, 17, 17, 17, 31 } },
-  { '9', { 31, 17, 17, 17, 31, 1, 1, 1, 31 } }
+  { '8', { 14, 17, 17, 17, 14, 17, 17, 17, 14 } },
+  { '9', { 14, 17, 17, 17, 15, 1, 1, 17, 14 } }
 };
 
 const BigSymbol E7Symbol::bigSymbolMaps[] = {
