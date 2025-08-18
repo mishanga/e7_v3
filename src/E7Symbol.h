@@ -27,6 +27,7 @@ struct E7Symbol {
   static const SmallSymbol smallSymbolMaps[E7S_MAP_SIZE];
   static const MediumSymbol mediumSymbolMaps[E7S_MAP_SIZE];
   static const BigSymbol bigSymbolMaps[E7S_MAP_SIZE];
+
   static const uint8_t defaultSmallGlyph[E7S_SMALL_SIZE];
   static const uint8_t defaultMediumGlyph[E7S_MEDIUM_SIZE];
   static const uint8_t defaultBigGlyph[E7S_BIG_SIZE];
@@ -37,7 +38,6 @@ struct E7Symbol {
         return symbol.glyph;
       }
     }
-
     return defaultSmallGlyph;
   }
 
@@ -62,7 +62,7 @@ struct E7Symbol {
   static void convertMediumGlyphTo8x8(const uint8_t* glyph, uint8_t* matrix) {
     matrix[0] = 0;
     // переносим верхнюю (8 строк) часть символа в матрицу as is
-    for (uint8_t i = 0; i < 8; i++) {
+    for (uint8_t i = 0; i < 7; i++) {
       matrix[i + 1] = glyph[i] << 1;
     }
 
