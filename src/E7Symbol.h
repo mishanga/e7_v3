@@ -81,7 +81,7 @@ struct E7Symbol {
 
     // group 4:
     bitWrite(matrix[7], 2, bitRead(glyph[7], 0));
-    bitWrite(matrix[6], 4, bitRead(glyph[8], 4));
+    bitWrite(matrix[6], 4, bitRead(glyph[8], 0));
   }
 
   static void convertBigGlyphTo8x8(const uint8_t* glyph, uint8_t* matrix) {
