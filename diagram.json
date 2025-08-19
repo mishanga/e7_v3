@@ -44,7 +44,7 @@
       "top": -73.8,
       "left": 257.2,
       "rotate": 180,
-      "attrs": {}
+      "attrs": { "lux": "1", "rl10": "10" }
     },
     {
       "type": "wokwi-pushbutton-6mm",
