@@ -13,37 +13,16 @@
     {
       "type": "wokwi-lcd1602",
       "id": "lcd1",
-      "top": 64,
+      "top": -3.2,
       "left": 284,
       "attrs": { "pins": "i2c", "i2cAddress": "0x27" }
     },
     {
       "type": "wokwi-ds1307",
       "id": "rtc1",
-      "top": 215.4,
+      "top": 148.2,
       "left": 278.5,
       "attrs": {}
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "btn1",
-      "top": 6.2,
-      "left": 316.8,
-      "attrs": { "color": "red", "xray": "1" }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "btn2",
-      "top": 6.2,
-      "left": 403.2,
-      "attrs": { "color": "green", "xray": "1" }
-    },
-    {
-      "type": "wokwi-pushbutton",
-      "id": "btn3",
-      "top": 6.2,
-      "left": 489.6,
-      "attrs": { "color": "green", "xray": "1" }
     },
     {
       "type": "wokwi-max7219-matrix",
@@ -62,10 +41,31 @@
     {
       "type": "wokwi-photoresistor-sensor",
       "id": "ldr1",
-      "top": -102.6,
-      "left": 238,
+      "top": -73.8,
+      "left": 257.2,
       "rotate": 180,
       "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn4",
+      "top": -165.4,
+      "left": 489.6,
+      "attrs": { "color": "red", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn1",
+      "top": -127,
+      "left": 489.6,
+      "attrs": { "color": "black", "xray": "1" }
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn2",
+      "top": -88.6,
+      "left": 489.6,
+      "attrs": { "color": "black", "xray": "1" }
     }
   ],
   "connections": [
@@ -77,20 +77,20 @@
     ["rtc1:5V", "nano:5V", "red", ["h0"]],
     ["rtc1:SDA", "nano:A4", "white", ["h0"]],
     ["rtc1:SCL", "nano:A5", "#8f4814", ["h0"]],
-    ["btn1:1.l", "nano:A1", "violet", ["v-9.6", "h-192"]],
-    ["btn2:1.l", "nano:A2", "#8f4814", ["h0", "v-19.2", "h-268.8"]],
-    ["btn3:1.l", "nano:A3", "green", ["h0", "v-28.8", "h-345.6"]],
-    ["btn3:2.l", "btn2:2.r", "black", ["h0"]],
-    ["btn2:2.l", "btn1:2.r", "black", ["h0"]],
-    ["btn1:2.l", "nano:GND.1", "black", ["h0"]],
-    ["led1:C", "nano:GND.1", "black", ["v57.6", "h-191.6"]],
     ["ldr1:AO", "nano:A7", "yellow", ["h0"]],
     ["ldr1:GND", "nano:GND.1", "black", ["h0"]],
     ["ldr1:VCC", "nano:3.3V", "blue", ["h0"]],
-    ["nano:3", "led1:A", "green", ["v-19.2", "h76.8", "v105.6", "h163.2"]],
+    ["nano:3", "led1:A", "green", ["v-19.2", "h76.8", "v57.6", "h163.2"]],
     ["nano:7", "matrix4:DIN", "green", ["v-28.8", "h441.6", "v-38.4"]],
     ["nano:6", "matrix4:CS.2", "blue", ["v0"]],
-    ["nano:5", "matrix4:CLK.2", "violet", ["v0"]]
+    ["nano:5", "matrix4:CLK.2", "violet", ["v0"]],
+    ["nano:GND.2", "led1:C", "black", ["v-9.6", "h67.2", "v38.4", "h144"]],
+    ["nano:A1", "btn4:1.l", "green", ["v0"]],
+    ["nano:GND.1", "btn4:2.l", "black", ["v0"]],
+    ["nano:A2", "btn1:1.l", "#8f4814", ["v0"]],
+    ["btn4:2.r", "btn1:2.r", "black", ["h20", "v29.2"]],
+    ["btn1:2.r", "btn2:2.r", "black", ["h20", "v29.2"]],
+    ["nano:A3", "btn2:1.l", "magenta", ["v0"]]
   ],
   "serialMonitor": {
     "display": "always",

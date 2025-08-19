@@ -13,6 +13,10 @@
 #include <LiquidCrystal_I2C.h>
 #include <RTClib.h>
 
+#define BTN_MODE_PIN A1
+#define BTN_PLUS_PIN A2
+#define BTN_MINUS_PIN A3
+
 #define E7_LCD_COLS 16
 #define E7_LCD_ROWS 2
 
@@ -138,9 +142,9 @@ public:
       _mode(E7_SHOW),
       _state(4),
       _set_delay(set_delay * 1000),
-      _btnMode(A1),
-      _btnMinus(A2),
-      _btnPlus(A3),
+      _btnMode(BTN_MODE_PIN),
+      _btnMinus(BTN_MINUS_PIN),
+      _btnPlus(BTN_PLUS_PIN),
       _debugInfo("") {}
 
   void begin() {
