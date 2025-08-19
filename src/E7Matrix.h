@@ -4,7 +4,7 @@
 
 #define E7M_MIN_LEVEL 100
 #define E7M_MAX_LEVEL 800
-#define E7M_MIN_BRIGHT 1
+#define E7M_MIN_BRIGHT 0
 #define E7M_MAX_BRIGHT 15
 #define E7M_LDR_PIN A7
 #define E7M_LED_PIN 3
@@ -23,7 +23,6 @@ private:
   uint8_t _state;
   uint16_t _delay[3];
   uint8_t _bright;
-  uint8_t _ledBright;
   static const E7Symbol _e7s;
 
   void _updateBright() {
@@ -33,7 +32,6 @@ private:
       E7M_MIN_LEVEL, E7M_MAX_LEVEL, E7M_MIN_BRIGHT, E7M_MAX_BRIGHT);
 
     _matrix.setBright(_bright);
-    _ledBright = _bright * 2;
   }
 
   void _updateView(String text, bool showDot = false) {
@@ -59,7 +57,7 @@ private:
   }
 
   void _updateDot(bool showDot = false) {
-    analogWrite(E7M_LED_PIN, showDot ? _ledBright : 0);
+    analogWrite(E7M_LED_PIN, showDot ? (_bright * 2 + 1) : 0);
   }
 
 public:
@@ -69,7 +67,7 @@ public:
         static_cast<uint16_t>(date_delay * 1000u),
         static_cast<uint16_t>(temp_delay * 1000u)
       },
-      _bright(E7M_MIN_BRIGHT), _ledBright(E7M_MIN_BRIGHT * 2) {}
+      _bright(E7M_MIN_BRIGHT) {}
 
   void update(E7Clock clock) {
     char format_time[] = "hhmm";
