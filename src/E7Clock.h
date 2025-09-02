@@ -43,7 +43,6 @@ private:
   Button _btnMinus;
   Button _btnPlus;
   DateTime _now;
-  String _debugInfo;
 
   void _clearLcd() {
     _lcd.setCursor(0, 1);
@@ -64,7 +63,6 @@ private:
       _lcd.print(sTemp);
 
       _lcd.setCursor(0, 1);
-      _lcd.print(_debugInfo);
     }
 
     if (_mode == E7_SET) {
@@ -144,8 +142,7 @@ public:
       _set_delay(set_delay * 1000),
       _btnMode(BTN_MODE_PIN),
       _btnMinus(BTN_MINUS_PIN),
-      _btnPlus(BTN_PLUS_PIN),
-      _debugInfo("") {}
+      _btnPlus(BTN_PLUS_PIN) {}
 
   void begin() {
     _rtc.begin();
@@ -193,9 +190,5 @@ public:
   String getFullDateTime() {
     char format[] = FULL_DATE_FORMAT;
     return _now.toString(format);
-  }
-
-  void debugInfo(String s) {
-    _debugInfo = s.substring(0, 7);
   }
 };
