@@ -127,6 +127,13 @@ const uint8_t E7Symbol::defaultSmallGlyph[E7S_SMALL_SIZE] = { 0 };
 const uint8_t E7Symbol::defaultMediumGlyph[E7S_MEDIUM_SIZE] = { 0 };
 const uint8_t E7Symbol::defaultBigGlyph[E7S_BIG_SIZE] = { 0 };
 
+// small 8
+// x x x
+// x . x
+// x x x
+// x . x
+// x x x
+
 const SmallSymbol E7Symbol::smallSymbolMaps[] = {
   { '+', { 0, 2, 7, 2, 0 } },
   { '-', { 0, 0, 7, 0, 0 } },
@@ -143,6 +150,16 @@ const SmallSymbol E7Symbol::smallSymbolMaps[] = {
   { '9', { 7, 5, 7, 1, 7 } }
 };
 
+// meduim 8
+// . x x x .
+// x . . . x
+// x . . . x
+// . x x x .
+// x . . . x
+// x . . . x
+// x . . . x
+// . x x x .
+
 const MediumSymbol E7Symbol::mediumSymbolMaps[] = {
   { '+', { 0, 0, 0, 1, 131, 1, 0, 0, 0 } },
   { '-', { 0, 0, 0, 0, 7, 0, 0, 0, 0 } },
@@ -158,6 +175,19 @@ const MediumSymbol E7Symbol::mediumSymbolMaps[] = {
   { '8', { 14, 17, 17, 17, 14, 17, 17, 17, 14 } },
   { '9', { 14, 17, 17, 17, 15, 1, 1, 17, 14 } }
 };
+
+// big 8
+// x x x x x x x
+// x x x x x x x
+// x x . . . x x
+// x x . . . x x
+// x x x x x x x
+// x x x x x x x
+// x x . . . x x
+// x x . . . x x
+// x x . . . x x
+// x x x x x x x
+// x x x x x x x
 
 const BigSymbol E7Symbol::bigSymbolMaps[] = {
   { '+', { 0, 0, 12, 12, 63, 63, 12, 12, 0, 0, 0 } },
