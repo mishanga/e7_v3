@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Arduino.h>
-#include <math.h>
 
 #define E7S_SMALL_SIZE 5
 #define E7S_MEDIUM_SIZE 9

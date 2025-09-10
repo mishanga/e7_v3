@@ -3,5 +3,4 @@
 
 EncButton
 GyverMAX7219
-LiquidCrystal I2C
 RTClib
