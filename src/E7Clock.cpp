@@ -57,7 +57,7 @@ void E7Clock::_updateView() {
     char day[] = "DD";
     char mon[] = "MM";
     char year[] = "YYYY";
-    bool blink = _now.second() % 2;
+    bool blink = (millis() % 1000) > 400;
 
     switch (_state) {
       case 0:
@@ -156,7 +156,10 @@ bool E7Clock::tick() {
   _updateMode();
   _updateTime();
 
-  if (millis() - _tmr_tick >= 1000) {
+  uint16_t delay = 1000;
+  if (_mode == 1) delay = 100;
+
+  if (millis() - _tmr_tick >= delay) {
     _tmr_tick = millis();
     _now = _rtc.now();
     _updateView();
